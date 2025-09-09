@@ -6,14 +6,14 @@ import Features from './Pages/Features'
 import Download from './Pages/Download'
 import FAQ from './Pages/FAQ'
 import Comet from './Pages/Comet'
-
-
+import About from './Pages/About'
 
 function App() {
   return (
     <div className='overflow-hidden'>
       <Header/>
       <Hero/>
+      <About/>
        <Features/>
       <Download/>
       <FAQ/>

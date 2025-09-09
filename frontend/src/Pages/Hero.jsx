@@ -1,64 +1,143 @@
-import React from "react";
-import { FiDownload } from "react-icons/fi"; 
-import vid from '../assets/video/video1.mp4'
+import React, { useEffect } from "react";
+import { motion } from "framer-motion";
+import { FiDownload } from "react-icons/fi";
+import VanillaTilt from "vanilla-tilt";
+import vid from "../assets/video/video1.mp4";
 
 const Hero = () => {
+  useEffect(() => {
+    const tilt = document.querySelectorAll(".tilt-card");
+    VanillaTilt.init(tilt, {
+      max: 20,
+      speed: 600,
+      glare: true,
+      "max-glare": 0.5,
+    });
+  }, []);
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.3,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 40 },
+    show: { opacity: 1, y: 0, transition: { duration: 1, ease: "easeOut" } },
+  };
+
   return (
-    <section className="relative w-full flex flex-col items-center justify-center text-center mt-[100px] px-6 sm:px-12 py-20 sm:py-28 lg:py-32 ">
+    <section
+      id="hero"
+      className="relative w-full min-h-screen flex flex-col items-center justify-center text-center px-6 py-20 overflow-hidden bg-[#05050a]"
+    >
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.6 }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
+        className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 animate-aurora"
+      ></motion.div>
 
-      <div className="absolute top-[250px] left-0 w-[200px] h-[200px] sm:w-[200px] sm:h-[200px] lg:w-[800px] lg:h-[800px]  pointer-events-none select-none">
-        <img
-          src="https://framerusercontent.com/images/F4RKAKmFyoRYVlTsUWN51wD1dg.png?scale-down-to=1024&width=1080&height=1080"
-          alt="background-ball"
-          className="w-full h-full object-contain animate-float-fast"
+      <motion.img
+        src="https://framerusercontent.com/images/F4RKAKmFyoRYVlTsUWN51wD1dg.png"
+        alt="ball"
+        className="absolute top-[120px] left-[-100px] w-[250px] lg:w-[500px] drop-shadow-[0_0_100px_rgba(99,102,241,0.9)]"
+        initial={{ scale: 0.9 }}
+        animate={{
+          scale: 1,
+          y: [0, -40, 0],
+          rotate: [0, 15, -15, 0],
+        }}
+        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      <motion.img
+        src="https://framerusercontent.com/images/eReia3yfybtZ8P5576d6kF8NJIM.png"
+        alt="ball"
+        className="absolute bottom-20 right-0 w-[200px] lg:w-[400px] drop-shadow-[0_0_100px_rgba(236,72,153,0.9)]"
+        initial={{ scale: 0.9 }}
+        animate={{
+          scale: 1,
+          y: [0, 30, 0],
+          rotate: [0, -15, 15, 0],
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      />
+
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="show"
+        className="relative z-10 max-w-4xl"
+      >
+        <motion.p
+          variants={itemVariants}
+          className="text-gray-300 text-xl mb-4 font-light"
+        >
+          Hi, I’m <span className="underline text-indigo-400">Ayush</span>
+        </motion.p>
+
+        <motion.h1
+          variants={itemVariants}
+          className="relative text-5xl sm:text-7xl font-extrabold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-400 bg-clip-text text-transparent inline-block overflow-hidden"
+        >
+          <span>
+            Full Stack Developer
+            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/60 to-transparent animate-text-shine"></span>
+          </span>
+        </motion.h1>
+
+        <motion.p
+          variants={itemVariants}
+          className="mt-6 text-lg sm:text-2xl text-gray-300 max-w-2xl mx-auto leading-relaxed"
+        >
+          Passionate about solving{" "}
+          <span className="text-pink-400 font-semibold">complex problems</span>,{" "}
+          <span className="text-purple-400 font-semibold">through intuitive</span>{" "}
+          <span className="text-indigo-400 font-semibold">design</span>. Crafting
+          immersive experiences through design, code, and creativity — turning ideas
+          into reality, one pixel at a time.
+        </motion.p>
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8, y: 40 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 1.2, ease: "easeOut", delay: 1 }}
+        className="tilt-card relative mt-16 w-full max-w-5xl aspect-video rounded-2xl overflow-hidden shadow-[0_0_80px_rgba(236,72,153,0.6)] border border-white/10"
+      >
+        <video
+          src={vid}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover rounded-2xl"
         />
-      </div>
+        <div className="absolute inset-0 rounded-2xl ring-2 ring-purple-500/40"></div>
+      </motion.div>
 
-      <div className="relative z-10 max-w-4xl ">
-        <p className="text-gray-500 text-2xl mb-3 ">
-          Hi, I’m <span className="underline">Abhay </span>
-        </p>
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold leading-tight  text-gray-900 mb-8">
-          A <span className="italic">Full Stack Developer</span> </h1>
-
-        <div className="relative w-full max-w-4xl aspect-video mx-auto rounded-xl overflow-hidden">
-          <img
-            src="https://framerusercontent.com/images/k3ZIjIkNl1cb1bXlVoMjDX6Tlc.png?width=3894&height=2442"
-            alt="browser-frame"
-            className="absolute inset-0 w-full h-full object-contain "
-          />
-
-          <div className="absolute top-[10%] left-[10%] w-[80%] h-[74%] bg-black rounded-lg overflow-hidden">
-            <video
-              src={vid}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="relative mt-[200px] w-full mx-auto flex flex-col items-center justify-center text-center px-4 ">
-        <div className="absolute -top-13 -left-0 sm:-top-16 sm:-left-0 lg:-top-20 lg:-left-0 w-40 h-40 sm:w-40 sm:h-40 lg:w-40 lg:h-40 rounded-full pointer-events-none select-none opacity-80">
-          <img
-            src="https://framerusercontent.com/images/eReia3yfybtZ8P5576d6kF8NJIM.png?scale-down-to=1024&width=1080&height=1080"
-            alt="ball"
-            className="w-full h-full object-cover animate-float-slow"
-          />
-        </div>    
-
-        <p className="relative text-4xl sm:text-3xl md:text-4xl text-black leading-snug mb-4 max-w-3xl">
-          <span className="font-medium text-indigo-600">I build modern web apps</span> with clean UI &
-          smooth user experience.
-        </p>
-        <p className="text-lg sm:text-xl text-gray-700 italic max-w-2xl">
-          Skilled in <span className="font-semibold">React, Node.js, </span>.
-          Always curious, always building.
-        </p>
-      </div>
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, delay: 1.3 }}
+        className="mt-16 relative z-10 flex flex-col items-center gap-6"
+      >
+        <motion.a
+          href="#projects"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="relative inline-flex items-center gap-2 px-10 py-3 rounded-full text-lg font-semibold text-white bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-500 shadow-[0_0_40px_rgba(236,72,153,0.7)] overflow-hidden group transition-all duration-500 hover:shadow-[0_0_80px_rgba(236,72,153,0.9)]"
+        >
+          <FiDownload className="text-xl" /> Download Resume
+          <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></span>
+        </motion.a>
+      </motion.div>
     </section>
   );
 };

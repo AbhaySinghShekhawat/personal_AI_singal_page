@@ -1,48 +1,90 @@
-import React from "react";
-import { FaReact, FaNodeJs, FaDatabase, FaPaintBrush, FaMobileAlt, FaGlobe } from "react-icons/fa";
+import React, { useEffect } from "react";
+import { motion } from "framer-motion";
+import VanillaTilt from "vanilla-tilt";
+
+const features = [
+  {
+    title: "Fast Performance",
+    description: "Optimized code and clean architecture for speed and efficiency.",
+  },
+  {
+    title: "Modern UI/UX",
+    description: "Beautiful, minimal, and user-friendly designs for better engagement.",
+  },
+  {
+    title: "Secure Backend",
+    description: "Robust authentication and encrypted data handling.",
+  },
+  {
+    title: "Scalable Systems",
+    description: "Architected to grow with your business needs.",
+  },
+];
 
 const Features = () => {
-  
-  const skills = [
-    { name: "Frontend Development", icon: <FaReact size={30} className="text-sky-400" /> },
-    { name: "Backend Development", icon: <FaNodeJs size={30} className="text-green-500" /> },
-    { name: "Database Management", icon: <FaDatabase size={30} className="text-yellow-400" /> },
-    { name: "UI/UX Design", icon: <FaPaintBrush size={30} className="text-pink-400" /> },
-    { name: "Responsive Design", icon: <FaMobileAlt size={30} className="text-purple-400" /> },
-    { name: "Web Applications", icon: <FaGlobe size={30} className="text-blue-400" /> },
-  ];
+  useEffect(() => {
+    const tiltCards = document.querySelectorAll(".tilt-card");
+    VanillaTilt.init(tiltCards, {
+      max: 15,
+      speed: 400,
+      glare: true,
+      "max-glare": 0.4,
+    });
+  }, []);
 
   return (
-    <section className="w-full flex items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white py-24 px-6 md:px-16">
-      <div className="relative z-10 max-w-6xl w-full text-center">
+    <section
+      id="features"
+      className="relative w-full min-h-screen flex flex-col items-center justify-center text-center px-6 py-20 overflow-hidden bg-[#05050a]"
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 opacity-70 animate-aurora"></div>
 
-        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-serif font-bold leading-tight text-gray-900 mb-8">
-          <span className="italic text-white">What I Do</span> 
-        </h1>
-
-        <p className="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed mb-16">
-          I build modern, responsive, and scalable web applications with
-          beautiful design and high performance.
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="relative z-10 mb-16"
+      >
+        <h2 className="text-5xl sm:text-6xl font-extrabold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-400 bg-clip-text text-transparent">
+          Features
+        </h2>
+        <p className="mt-4 text-gray-300 text-lg max-w-xl mx-auto leading-relaxed">
+          Everything you need to build powerful, scalable, and modern web apps.
         </p>
+      </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {skills.map((skill, index) => (
-            <div
-              key={index}
-              className="group relative bg-white/5 backdrop-blur-xl rounded-2xl p-8 flex flex-col items-center justify-center text-center border border-white/10 shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(236,72,153,0.5)] transition-all duration-300 hover:scale-105"
+      <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 max-w-6xl w-full">
+        {features.map((feature, index) => (
+          <motion.div
+            key={index}
+            className="tilt-card relative p-6 rounded-2xl bg-black/40 border border-white/10 shadow-[0_0_50px_rgba(236,72,153,0.4)] hover:shadow-[0_0_80px_rgba(236,72,153,0.7)] transition-all duration-500 backdrop-blur-xl"
+            initial={{ opacity: 0, y: 80, scale: 0.9 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.8, delay: index * 0.2 }}
+            viewport={{ once: true, amount: 0.3 }}
+          >
+            <motion.div
+              initial={{ scale: 0 }}
+              whileInView={{ scale: 1 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              viewport={{ once: true }}
+              className="text-5xl mb-4"
             >
-              <div className="mb-4 group-hover:scale-110 transition-transform duration-300">
-                {skill.icon}
-              </div>
-              <h3 className="text-xl font-semibold text-white group-hover:text-pink-300 transition-colors duration-300">
-                {skill.name}
-              </h3>
-            </div>
-          ))}
-        </div>
+              {feature.icon}
+            </motion.div>
+            <h3 className="text-2xl font-bold text-white mb-2">
+              {feature.title}
+            </h3>
+            <p className="text-gray-300 text-sm leading-relaxed">
+              {feature.description}
+            </p>
+            <span className="absolute inset-0 rounded-2xl bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-700"></span>
+          </motion.div>
+        ))}
       </div>
     </section>
   );
 };
-export default Features;
 
+export default Features;

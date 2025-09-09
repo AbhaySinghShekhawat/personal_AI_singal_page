@@ -17,6 +17,7 @@ export default {
         "float-medium": "float 4s ease-in-out infinite",
         "float-fast": "float 3s ease-in-out infinite",
       },
+      
     },
   },
   plugins: [],
